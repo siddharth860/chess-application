@@ -1,6 +1,6 @@
 import { createPosition } from "./components/bits/helper";
 
 export const initData={
-    position :createPosition(),
+    position :[createPosition()],
     turn :'w'
 }

@@ -1,6 +1,8 @@
+import actionType from "../actionType"
+
 export const makeNewMove=({newPosition})=>{
     return {
-        type : 'NEW_MOVE',
+        type :actionType.NEW_MOVE,
         payload :{newPosition}
     }
 }

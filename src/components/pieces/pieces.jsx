@@ -7,9 +7,9 @@ import { makeNewMove } from '../reducer/actions/move.jsx'
 
 const Pieces =()=>{
    const {appState,dispatch}=useContextApp()
-   const currentPosition=appState.position
+   const currentPosition=appState.position[appState.position.length-1]
    const ref=useRef()
-
+  
 
    const calcCoords=(e)=>{
       const {width,left,top}=ref.current.getBoundingClientRect()

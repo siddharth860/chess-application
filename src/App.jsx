@@ -5,7 +5,7 @@ import './constants.css'
 import contextApp from './components/context/context'
 import { reducerApp } from './components/reducer/reducer'     
 import { useReducer } from 'react'
-import { initData } from './constant'
+import { initData } from './constant.jsx'
 function App() {
    const [appState,dispatch]=useReducer(reducerApp,initData)
    const providerState={appState,dispatch}
