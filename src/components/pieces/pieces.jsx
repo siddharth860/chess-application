@@ -3,7 +3,7 @@ import Piece from './piece.jsx'
 import {copyPosition,createPosition} from '../bits/helper.js'
 import { useState ,useRef} from 'react'
 import { useContextApp } from '../context/context.jsx'
-import { makeNewMove } from '../reducer/actions/move.jsx'
+import { makeNewMove,clearCandidates } from '../reducer/actions/move.jsx'
 
 const Pieces =()=>{
    const {appState,dispatch}=useContextApp()
@@ -22,9 +22,13 @@ const Pieces =()=>{
       const newPosition=copyPosition(currentPosition)
       const {x,y}=calcCoords(e)
       const [piece,rank,file]=e.dataTransfer.getData('text').split(',')
-      newPosition[rank][file]=''
-      newPosition[x][y]=piece
-      dispatch(makeNewMove({newPosition}))
+      
+      if (appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+         newPosition[rank][file]=''
+         newPosition[x][y]=piece
+         dispatch(makeNewMove({newPosition}))
+      }
+   
    }
    const OnDragOverState=(e)=> e.preventDefault()
     return(
