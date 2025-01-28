@@ -16,10 +16,10 @@ export const reducerApp=(state,action)=>{
             return{
             ...state,candidateMoves: action.payload.candidateMoves
         } }
-        // case actionType.CLEAR_CANDIDATES:{
-        //     return{
-        //     ...state,candidateMoves:[]
-        // } }
+        case actionType.CLEAR_CANDIDATES:{
+            return{
+            ...state,candidateMoves:[]
+        } }
 
         default:
             return state

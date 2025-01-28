@@ -13,6 +13,6 @@ export const generateCandidateMoves=({candidateMoves})=>{
     }
 }
 export const clearCandidates=()=>{
-    type :actionType.CLEAR_CANDIDATES 
+   return {type :actionType.CLEAR_CANDIDATES} 
 }
 

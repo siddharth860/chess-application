@@ -28,7 +28,7 @@ const Pieces =()=>{
          newPosition[x][y]=piece
          dispatch(makeNewMove({newPosition}))
       }
-   
+      dispatch(clearCandidates())
    }
    const OnDragOverState=(e)=> e.preventDefault()
     return(
