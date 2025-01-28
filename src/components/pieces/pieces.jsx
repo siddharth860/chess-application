@@ -4,6 +4,7 @@ import {copyPosition,createPosition} from '../bits/helper.js'
 import { useState ,useRef} from 'react'
 import { useContextApp } from '../context/context.jsx'
 import { makeNewMove,clearCandidates } from '../reducer/actions/move.jsx'
+import arbiter from '../arbiter/arbiter.js'
 
 const Pieces =()=>{
    const {appState,dispatch}=useContextApp()
@@ -18,17 +19,26 @@ const Pieces =()=>{
       const x=7-Math.floor((e.clientY-top)/size)
       return {x,y}
    }
-   const onDropState=(e)=>{
-      const newPosition=copyPosition(currentPosition)
+
+   const move=(e)=>{
       const {x,y}=calcCoords(e)
       const [piece,rank,file]=e.dataTransfer.getData('text').split(',')
-      
       if (appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
-         newPosition[rank][file]=''
-         newPosition[x][y]=piece
+         const newPosition=arbiter.performMove({
+            position:currentPosition,
+            piece,rank,file,x,y}
+         )
          dispatch(makeNewMove({newPosition}))
       }
       dispatch(clearCandidates())
+   }
+
+
+   const onDropState=(e)=>{
+    
+      move(e)
+      
+   
    }
    const OnDragOverState=(e)=> e.preventDefault()
     return(
