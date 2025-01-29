@@ -3,7 +3,8 @@ import Piece from './piece.jsx'
 import {copyPosition,createPosition} from '../bits/helper.js'
 import { useState ,useRef} from 'react'
 import { useContextApp } from '../context/context.jsx'
-import { makeNewMove,clearCandidates } from '../reducer/actions/move.jsx'
+import { makeNewMove,clearCandidates} from '../reducer/actions/move.jsx'
+import { openPromotion } from '../reducer/actions/popup.js'
 import arbiter from '../arbiter/arbiter.js'
 
 const Pieces =()=>{
@@ -19,11 +20,22 @@ const Pieces =()=>{
       const x=7-Math.floor((e.clientY-top)/size)
       return {x,y}
    }
+   const openPromotionBox=({piece,rank,file,x,y})=>{
+      dispatch(openPromotion({piece,rank:Number(rank),file:Number(file),x,y}))
+   }
 
    const move=(e)=>{
       const {x,y}=calcCoords(e)
       const [piece,rank,file]=e.dataTransfer.getData('text').split(',')
+      
+
+
       if (appState.candidateMoves?.find(m => m[0] === x && m[1] === y)){
+         if((piece==='wp'&&x===7)||(piece==='bp'&& x===0))
+         {
+            openPromotionBox({piece,rank,file,x,y})
+            return
+         }
          const newPosition=arbiter.performMove({
             position:currentPosition,
             piece,rank,file,x,y}
