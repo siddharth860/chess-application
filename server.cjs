@@ -12,7 +12,7 @@ app.use(bodyParser.json());
 app.use(cors()); 
 
 
-mongoose.connect('mongodb://localhost:27017/chess', { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect('mongodb+srv://siddharth:3102@demo.vlkwr.mongodb.net/?retryWrites=true&w=majority&appName=demo', { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => console.log('MongoDB connected'))
     .catch(err => console.log(err));
 
