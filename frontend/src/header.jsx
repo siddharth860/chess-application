@@ -1,5 +1,5 @@
 import './header.css'
-import chessimg from '../../assets/chess logo.png'
+import chessimg from '../../assets/chesslogo.png'
 
 const Header=()=>{
     return(<div className="Header">
