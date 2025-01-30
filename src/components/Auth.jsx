@@ -11,7 +11,7 @@ const Auth = () => {
     const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const url = isLogin ? 'http://localhost:5000/api/login' : 'http://localhost:5000/api/register';
+        const url = isLogin ? 'https://chess-application.onrender.com/api/login' : 'https://chess-application.onrender.com/api/register';
         try {
             const response = await axios.post(url, { username, password });
             alert(response.data.message || 'Success ');
