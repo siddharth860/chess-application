@@ -1,4 +1,4 @@
-/* @import './constants.css' */
+
 html,body{
     margin: 0;
     padding: 0;
@@ -12,5 +12,7 @@ html,body{
     place-content: center;
     height: 100vh;
     background-color: var(--bg-color);
-    grid-template-columns: auto 220px;
+    grid-template-columns: auto 300px;
+    grid-column-gap: 35%;
+  
 }

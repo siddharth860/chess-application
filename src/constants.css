@@ -3,6 +3,7 @@
     --light-tile : #EEEED2;
     --dark-tile :#769656;
     --highlight :rgba(45, 41, 41, 0.1);
+    --check : #f61f1f;
     font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;

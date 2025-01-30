@@ -1,4 +1,4 @@
-
+import arbiter from './arbiter.js'
 
 export const getRookMoves = ({position,piece,rank,file}) => {
     const moves = []
@@ -164,4 +164,153 @@ export const getPawnCaptures =  ({position,prevPosition,piece,rank,file}) => {
     }
 
    return moves
+}
+
+export const getCastlingMoves = ({position,castleDirection,piece,rank,file}) => {
+    const moves = []
+    
+    if (file !== 4 || rank % 7 !== 0 || castleDirection === 'none'){
+        return moves
+    }
+    if (piece.startsWith('w') ){
+
+        if (arbiter.isPlayerInCheck({
+            positionAfterMove : position,
+            player : 'w'
+        }))
+            return moves
+
+        if (['left','both'].includes(castleDirection) && 
+            !position[0][3] && 
+            !position[0][2] && 
+            !position[0][1] &&
+            position[0][0] === 'wr' &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:0,y:3}),
+                player : 'w'
+            }) &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:0,y:2}),
+                player : 'w'
+            })){
+            moves.push ([0,2])
+        }
+        if (['right','both'].includes(castleDirection) && 
+            !position[0][5] && 
+            !position[0][6] &&
+            position[0][7] === 'wr' &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:0,y:5}),
+                player : 'w'
+            }) &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:0,y:6}),
+                player : 'w'
+            }))
+            {
+            moves.push ([0,6])
+        }
+    }
+    else {
+        if (arbiter.isPlayerInCheck({
+            positionAfterMove : position,
+            player : 'b'
+        }))
+            return moves
+
+        if (['left','both'].includes(castleDirection) && 
+            !position[7][3] && 
+            !position[7][2] && 
+            !position[7][1] &&
+            position[7][0] === 'br' &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:7,y:3}),
+                position : position,
+                player : 'b'
+            }) &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:7,y:2}),
+                position : position,
+                player : 'b'
+            })){
+            moves.push ([7,2])
+        }
+        if (['right','both'].includes(castleDirection) && 
+            !position[7][5] && 
+            !position[7][6] &&
+            position[7][7] === 'br' &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:7,y:5}),
+                position : position,
+                player : 'b'
+            }) &&
+            !arbiter.isPlayerInCheck({
+                positionAfterMove : arbiter.performMove({position,piece,rank,file,x:7,y:6}),
+                position : position,
+                player : 'b'
+            })){
+            moves.push ([7,6])
+        }
+    }
+
+    return moves
+
+}
+
+export const getCastleDirections=({castleDirection,piece,rank,file})=>{
+    rank=Number(rank)
+    file=Number(file)
+    const direction=castleDirection[piece[0]]
+    if(piece.endsWith('k'))
+        return 'none'
+    if(file===0 &&  rank===0){
+        if(direction === 'both')
+            return 'right'
+        if(direction === 'left')
+            return 'none'
+    }
+    if(file===7 &&  rank===0){
+        if(direction === 'both')
+            return 'left'
+        if(direction === 'right')
+            return 'none'
+    }
+    if(file===0 &&  rank===7){
+        if(direction === 'both')
+            return 'right'
+        if(direction === 'left')
+            return 'none'
+    }
+    if(file===7 &&  rank===7){
+        if(direction === 'both')
+            return 'left'
+        if(direction === 'right')
+            return 'none'
+    }
+}
+
+export const getKingPosition=(position,player)=>{
+    let kingPos
+    position.forEach((rank,x)=>{
+        rank.forEach((file,y)=>{
+            if(position[x][y].startsWith[player] && position.endsWith('k'))
+                kingPos=[x,y]
+        })
+    })
+    return kingPos  
+}
+
+export const getPieces=(position,enemy)=>{
+    const enemyPieces=[]
+    position.forEach((rank,x)=>{
+        rank.forEach((file,y)=>{
+            if(position[x][y].startsWith[enemy])
+                kingPos.push({
+                   piece : position[x][y],
+                   file:x,
+                   rank:y
+                })
+        })
+    })
+    return enemyPieces
 }

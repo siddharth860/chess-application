@@ -45,3 +45,14 @@
 .dark-tile{
     background-color: var(--dark-tile);
 }
+.checked:after {
+    display: block;
+    position: absolute;
+    content: '';
+    width :  var(--tile-size);
+    height :  var(--tile-size);
+    background: var(--check);
+    border-radius: 20px;
+    left: 0;
+    top: 0;
+}

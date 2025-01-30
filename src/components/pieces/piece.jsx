@@ -4,7 +4,7 @@ import { useContextApp } from "../context/context";
 
 const Piece=({rank,file,piece})=>{
     const {appState,dispatch}=useContextApp()
-    const {turn,position}=appState
+    const {turn,position,castleDirection}=appState
     const currentPosition=position[position.length-1]
 
 
@@ -21,9 +21,11 @@ const Piece=({rank,file,piece})=>{
                     position : position[position.length - 1],
                     prevPosition : position[position.length - 2],
                     piece,
+                    castleDirection: castleDirection[turn],
                     file,
                     rank
                 })
+                console.log(candidateMoves)
                 dispatch(generateCandidateMoves({candidateMoves}))
      } }
     const handleDragEnd=(e)=>e.target.style.display='block'

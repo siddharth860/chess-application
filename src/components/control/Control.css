@@ -1,0 +1,38 @@
+.control {
+    display: flex;
+    
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+    height: calc(8*var(--tile-size));
+    background: rgb(56, 54, 54);
+    border-radius: 10px;
+}
+
+.player{
+    display: flex;
+    margin-top: 10px;
+    margin-left: 10px;
+    flex-direction: row;
+    color:aliceblue;
+  
+    flex-wrap: wrap;
+    align-content: start;
+    
+    font-size: 1.1em;
+}
+
+.p1{
+    flex-basis: 35%;
+    padding-left: 15%;
+    text-align: left;
+    position: relative;
+    padding-bottom: 5px;
+}
+.p2{
+    flex-basis: 35%;
+    padding-left: 15%;
+    text-align: left;
+    position: relative;
+    padding-bottom: 5px;
+}

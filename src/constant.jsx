@@ -11,6 +11,11 @@ export const initData={
     position :[createPosition()],
     turn :'w',
     candidateMoves:[],
+    movesList:[],
     status:Status.ongoing,
-    promotionSquare: null
+    promotionSquare: null,
+    castleDirection:{
+        w:'both',
+        b:'both'
+    }
 }

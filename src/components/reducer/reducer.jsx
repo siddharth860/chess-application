@@ -1,15 +1,19 @@
 import actionType from "./actionType"
 import {Status} from '../../constant.jsx'
+
 export const reducerApp=(state,action)=>{
     switch(action.type){
         case actionType.NEW_MOVE:{
-            let {turn,position}=state
+            let {turn,position,movesList}=state
             turn= turn==='w'?'b':'w'
             position=[
                 ...position,action.payload.newPosition
             ]
+            movesList=[
+                ...movesList,action.payload.newMove
+            ]
             return{
-                ...state,turn,position
+                ...state,movesList,turn,position
             }
         }
         case actionType.GENERATE_CANDIDATE_MOVES:{
@@ -27,6 +31,12 @@ export const reducerApp=(state,action)=>{
         case actionType.PROMOTION_CLOSE:{
             return{
             ...state,status:Status.ongoing,promotionSquare:null
+        } }
+        case actionType.CAN_CASTLE:{
+            let {turn,castleDirection}=state
+            castleDirection[turn]=action.payload
+            return{
+            ...state,castleDirection
         } }
         default:
             return state
